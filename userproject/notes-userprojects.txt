@@ -1,0 +1,77 @@
+1. open the powershell windows in the folder where you wantto create project and type the command.
+-->django-admin startproject userproject     ,here userproject is the name of project.
+2. after this run the following commands
+-->python manage.py makemigrations
+-->python manage.py migrate
+3. now create an app named as home here.
+-->python manage.py startapp home
+or
+-->django-admin startapp home
+4. now register the app, go to settings.py and in installed_app write this: 'home.apps.Homeconfig',
+5. make 2 folders 
+    i-static
+    ii-templates
+6. added static dir in the settings.py at 2 places one at the end and another at in templates-DIR.
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+7. Our project setup complete, now we will make login.html for login page and index.html for the page after login.
+8. Start to write the content in both html page.
+9.  do some changes in project(userproject) urls.py
+-------------------------------------
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('home.urls')),
+    
+]
+10. and after this we will make a urls.py in app(home here) and write the content in it.
+--------------------------------------
+from django.contrib import admin
+from django.urls import path, include
+from home import views
+
+urlpatterns = [
+    path('', views.index, name="home"),
+    path('login', views.login, name="login"),
+    path('logout', views.logout, name="logout"),
+    ]
+
+11. now write the content the views.py
+----------------------------------------
+from django.shortcuts import render, redirect
+
+# Create your views here.
+def index(request):
+    render(request, 'index.html')
+    
+def login(request):
+    render(request, 'login.html')
+
+def logout(request):
+    render(request, 'logout.html')
+
+12. now it's time to create a superuser by the following command :
+-->python manage.py createsuperuser
+-------------------
+username : admin
+password : admin123
+
+13. add 
+ALLOWED_HOSTS = ['127.0.0.1']
+in the allowed host of settings.py
+
+14. test user create
+--------------------
+username : vishal
+password : Zsquare@493
+
+15. take the starter template and login form from the getbootstrap and paste in the index.html  
+remove display: flex; css from the index.html for text align center.
+
+16. do some changes in it like name="email" and name="password" in the input type of index.html and method="post" action="/" in form.
+
+
+ 
